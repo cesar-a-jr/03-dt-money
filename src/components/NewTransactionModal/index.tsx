@@ -5,6 +5,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { useContextSelector } from 'use-context-selector'
 import * as z from 'zod'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
+import { ref, set } from 'firebase/database'
+import { auth, db } from '../../services/firebaseconection'
 
 import {
   CloseModal,
@@ -13,6 +15,7 @@ import {
   TransactionalType,
   TransactionalTypeButton,
 } from './styles'
+import { useEffect } from 'react'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -31,6 +34,11 @@ export function NewTransactionModal() {
     },
   )
 
+  useEffect(() => {
+    const user = auth.currentUser
+    const uid = user?.uid
+  })
+
   const {
     register,
     handleSubmit,
@@ -42,13 +50,12 @@ export function NewTransactionModal() {
   })
 
   async function handleCreateNewTransaction(data: NewTransactionsFormInputs) {
-    const { description, price, category, type } = data
-
-    await createTransaction({
-      description,
-      price,
-      category,
-      type,
+    set(ref(db, 'user'), {
+      createdAt: new Date(),
+      description: data.description,
+      price: data.price,
+      category: data.category,
+      type: data.type,
     })
 
     reset()

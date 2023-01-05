@@ -1,17 +1,54 @@
 import { ThemeProvider } from 'styled-components'
 import { TransactionProvider } from './contexts/TransactionsContext'
+import { Home } from './pages/home'
 import { Transactions } from './pages/Transactions'
 
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 
-export function App() {
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-      <TransactionProvider>
-        <Transactions />
-      </TransactionProvider>
-    </ThemeProvider>
-  )
-}
+import { createBrowserRouter } from 'react-router-dom'
+import { Registrar } from './pages/registrar'
+import { Entrar } from './pages/entrar'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <Home />
+      </ThemeProvider>
+    ),
+  },
+  {
+    path: '/entrar',
+    element: (
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <Entrar />
+      </ThemeProvider>
+    ),
+  },
+  {
+    path: '/registrar',
+    element: (
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <Registrar />
+      </ThemeProvider>
+    ),
+  },
+  {
+    path: '/transactions',
+    element: (
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <TransactionProvider>
+          <Transactions />
+        </TransactionProvider>
+      </ThemeProvider>
+    ),
+  },
+])
+
+export { router }
