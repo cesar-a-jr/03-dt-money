@@ -39,6 +39,22 @@
       "type": "outcome",
       "createdAt": "2023-01-04T20:14:53.081Z",
       "id": 5
+    },
+    {
+      "description": "sdadsa",
+      "price": 3442,
+      "category": "423423",
+      "type": "outcome",
+      "createdAt": "2023-01-04T22:13:15.420Z",
+      "id": 6
+    },
+    {
+      "description": "sdadas",
+      "price": 3000,
+      "category": "salario",
+      "type": "income",
+      "createdAt": "2023-01-04T22:14:05.228Z",
+      "id": 7
     }
   ]
 }
