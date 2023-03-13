@@ -2,10 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
 import { Controller, useForm } from 'react-hook-form'
-import { useContextSelector } from 'use-context-selector'
 import * as z from 'zod'
-import { TransactionsContext } from '../../contexts/TransactionsContext'
-import { ref, set } from 'firebase/database'
+import { ref, set, push } from 'firebase/database'
 import { auth, db } from '../../services/firebaseconection'
 
 import {
@@ -15,7 +13,6 @@ import {
   TransactionalType,
   TransactionalTypeButton,
 } from './styles'
-import { useEffect } from 'react'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -27,18 +24,6 @@ const newTransactionFormSchema = z.object({
 type NewTransactionsFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
-  const createTransaction = useContextSelector(
-    TransactionsContext,
-    (context) => {
-      return context.createTransaction
-    },
-  )
-
-  useEffect(() => {
-    const user = auth.currentUser
-    const uid = user?.uid
-  })
-
   const {
     register,
     handleSubmit,
@@ -50,7 +35,10 @@ export function NewTransactionModal() {
   })
 
   async function handleCreateNewTransaction(data: NewTransactionsFormInputs) {
-    set(ref(db, 'user'), {
+    const transaction = ref(db, auth.currentUser?.uid)
+    const transactionPush = push(transaction)
+
+    set(transactionPush, {
       createdAt: new Date(),
       description: data.description,
       price: data.price,
@@ -91,7 +79,6 @@ export function NewTransactionModal() {
             control={control}
             name="type"
             render={({ field }) => {
-              console.log(field)
               return (
                 <TransactionalType
                   onValueChange={field.onChange}

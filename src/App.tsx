@@ -1,5 +1,4 @@
 import { ThemeProvider } from 'styled-components'
-import { TransactionProvider } from './contexts/TransactionsContext'
 import { Home } from './pages/home'
 import { Transactions } from './pages/Transactions'
 
@@ -43,9 +42,7 @@ const router = createBrowserRouter([
     element: (
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
-        <TransactionProvider>
-          <Transactions />
-        </TransactionProvider>
+        <Transactions />
       </ThemeProvider>
     ),
   },
