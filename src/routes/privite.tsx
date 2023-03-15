@@ -6,8 +6,6 @@ import { Navigate } from 'react-router-dom'
 // eslint-disable-next-line
 import { async } from "@firebase/util"
 
-
-
 export default function Privite({ children }: any) {
   const [loading, setLoading] = useState(true)
   const [singed, setSinged] = useState(false)

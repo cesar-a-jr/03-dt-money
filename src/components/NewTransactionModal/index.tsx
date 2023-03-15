@@ -16,7 +16,7 @@ import {
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
-  price: z.number(),
+  price: z.number().positive(),
   category: z.string(),
   type: z.enum(['income', 'outcome']),
 })
@@ -67,7 +67,7 @@ export function NewTransactionModal() {
             type="number"
             placeholder="Preço"
             required
-            {...register('price', { valueAsNumber: true })}
+            {...register('price')}
           />
           <input
             type="text"

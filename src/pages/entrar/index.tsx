@@ -10,16 +10,14 @@ export function Entrar() {
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data: any) => {
-    
-      signInWithEmailAndPassword(auth, data.email, data.password)
-        .then(() => {
-          console.log('usuario criado')
-          navigate('/transactions')
-        })
-        .catch(() => {
-          console.log('F usuario ')
-        })
-    
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then(() => {
+        console.log('usuario criado')
+        navigate('/transactions')
+      })
+      .catch(() => {
+        console.log('F usuario ')
+      })
   }
 
   return (

@@ -52,7 +52,7 @@ export function Transactions() {
   return (
     <div>
       <Header />
-      <Summary transactions={transactions} />
+      <Summary transactions={filteredTransactions} />
       <SearchForm
         transactions={transactions}
         setFilteredTransactions={setFilteredTransactions}
