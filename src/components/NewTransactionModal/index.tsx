@@ -33,13 +33,14 @@ export function NewTransactionModal() {
   } = useForm<NewTransactionsFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
   })
+  const hora = Date.now()
 
   async function handleCreateNewTransaction(data: NewTransactionsFormInputs) {
     const transaction = ref(db, auth.currentUser?.uid)
     const transactionPush = push(transaction)
 
     set(transactionPush, {
-      createdAt: new Date(),
+      createdAt: hora,
       description: data.description,
       price: data.price,
       category: data.category,

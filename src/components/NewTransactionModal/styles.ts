@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 
@@ -8,6 +8,14 @@ export const Overlay = styled(Dialog.Overlay)`
   height: 100vh;
   inset: 0;
   background: #00000075;
+`
+const slideUpAnimation = keyframes`
+  from {
+    margin-top: 100%;
+  }
+  to {
+    margin-top: 0%;
+  }
 `
 
 export const Content = styled(Dialog.Content)`
@@ -20,6 +28,15 @@ export const Content = styled(Dialog.Content)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 768px) {
+    min-width: 100vw;
+    top: 100%;
+    transform: translate(-50%, -100%);
+    border-radius: 20px 20px 0 0;
+
+    animation: ${slideUpAnimation} 0.5s;
+  }
 
   form {
     margin-top: 2rem;

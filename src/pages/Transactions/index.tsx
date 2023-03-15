@@ -1,18 +1,19 @@
-import { useContextSelector } from 'use-context-selector'
 import { Header } from '../../components/Header'
 import { Summary } from '../../components/Summary'
-import { TransactionsContext } from '../../contexts/TransactionsContext'
 import { dateFormater, priceFormater } from '../../utils/formater'
 import { SearchForm } from './components/SearchForm/Index'
 import { auth, db } from '../../services/firebaseconection'
 
 import {
+  InfoDiv,
   PriceHighLight,
   TransactionsContainer,
+  TransactionsResponsive,
   TransactionsTable,
 } from './styles'
 import { onValue, ref } from '@firebase/database'
 import { useEffect, useState } from 'react'
+import { CalendarBlank, TagSimple } from 'phosphor-react'
 
 interface Transaction {
   id: string
@@ -25,6 +26,7 @@ interface Transaction {
 
 export function Transactions() {
   const [transactions, setTransaction] = useState<Transaction[]>([])
+  const [filteredTransactions, setFilteredTransactions] = useState(transactions)
 
   useEffect(() => {
     const transactionsRef = ref(db, auth.currentUser?.uid)
@@ -36,7 +38,9 @@ export function Transactions() {
             return { id, ...transaction }
           },
         )
+        console.log(transactionsData)
         setTransaction(transactionsData)
+        setFilteredTransactions(transactionsData)
       }
     })
   }, [])
@@ -44,12 +48,15 @@ export function Transactions() {
   return (
     <div>
       <Header />
-      <Summary />
+      <Summary transactions={transactions} />
+      <SearchForm
+        transactions={transactions}
+        setFilteredTransactions={setFilteredTransactions}
+      />
       <TransactionsContainer>
-        <SearchForm />
         <TransactionsTable>
           <tbody>
-            {transactions.map((transaction: Transaction) => {
+            {filteredTransactions.map((transaction: Transaction) => {
               const date = new Date(transaction.createdAt)
               const formattedDate = isNaN(date.getTime())
                 ? ''
@@ -70,6 +77,33 @@ export function Transactions() {
             })}
           </tbody>
         </TransactionsTable>
+        <TransactionsResponsive>
+          {filteredTransactions.map((transaction: Transaction) => {
+            const date = new Date(transaction.createdAt)
+            const formattedDate = isNaN(date.getTime())
+              ? ''
+              : dateFormater.format(date)
+            return (
+              <div key={transaction.id}>
+                <h1>{transaction.description}</h1>
+                <PriceHighLight variant={transaction.type}>
+                  {transaction.type === 'outcome' && '- '}
+                  {priceFormater.format(transaction.price)}
+                </PriceHighLight>
+                <InfoDiv>
+                  <p>
+                    <TagSimple size={15} />
+                    {transaction.category}
+                  </p>
+                  <p>
+                    <CalendarBlank size={15} />
+                    {formattedDate}
+                  </p>
+                </InfoDiv>
+              </div>
+            )
+          })}
+        </TransactionsResponsive>
       </TransactionsContainer>
     </div>
   )

@@ -8,6 +8,14 @@ export const RegisterComponent = styled.main`
   align-items: center;
   flex-direction: column;
 
+  @media (max-width: 768px) {
+    max-width: 100vw;
+
+    form {
+      max-width: 100vw;
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;
