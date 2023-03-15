@@ -33,10 +33,8 @@ export function Transactions() {
     onValue(transactionsRef, (snapshot) => {
       const data = snapshot.val()
       if (data) {
-        const transactionsData = Object.entries(data).map(
-          ([id, transaction]) => {
-            return { id, ...transaction }
-          },
+        const transactionsData = Object.entries(data).map((entry) =>
+          parseTransaction(entry),
         )
         console.log(transactionsData)
         setTransaction(transactionsData)
@@ -44,6 +42,12 @@ export function Transactions() {
       }
     })
   }, [])
+
+  function parseTransaction([id, transaction]: [string, unknown]): Transaction {
+    const { description, type, price, category, createdAt } =
+      transaction as Transaction
+    return { id, description, type, price, category, createdAt } as Transaction
+  }
 
   return (
     <div>
