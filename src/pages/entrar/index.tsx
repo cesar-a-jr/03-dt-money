@@ -10,7 +10,7 @@ export function Entrar() {
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data: any) => {
-    if (data.password > 5) {
+    
       signInWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
           console.log('usuario criado')
@@ -19,7 +19,7 @@ export function Entrar() {
         .catch(() => {
           console.log('F usuario ')
         })
-    }
+    
   }
 
   return (
