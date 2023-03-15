@@ -21,7 +21,7 @@ export function Summary(transactions: any) {
     0,
   )
 
-  const total = totalIncome + totalOutcome
+  const total = totalIncome - totalOutcome
 
   return (
     <SummaryContainer>
