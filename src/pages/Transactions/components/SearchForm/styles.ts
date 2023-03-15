@@ -3,6 +3,10 @@ import styled from 'styled-components'
 export const SearchFormContainer = styled.form`
   display: flex;
   gap: 1rem;
+  width: 100%;
+  max-width: 1120px;
+  margin: 4rem auto 0;
+  padding: 0 1.5rem;
 
   input {
     flex: 1;
@@ -42,5 +46,15 @@ export const SearchFormContainer = styled.form`
       border: 1px solid ${(props) => props.theme['green-500']};
       color: ${(props) => props.theme.white};
     }
+  }
+
+  @media (max-width: 768px) {
+    margin: 4rem auto 0;
+  }
+`
+
+export const ResponsiveText = styled.p`
+  @media (max-width: 768px) {
+    display: none;
   }
 `

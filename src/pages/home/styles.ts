@@ -17,6 +17,16 @@ export const HomeContainer = styled.main`
   img {
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    display: grid;
+    div {
+      width: 100%;
+    }
+    img {
+      display: none;
+    }
+  }
 `
 export const Buttons = styled.main`
   margin: 2rem;
@@ -34,5 +44,13 @@ export const Buttons = styled.main`
 
   button:hover {
     scale: 1.1;
+  }
+
+  @media (max-width: 768px) {
+    display: grid;
+    width: 100%;
+    button {
+      width: 90%;
+    }
   }
 `

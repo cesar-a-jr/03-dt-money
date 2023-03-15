@@ -10,16 +10,14 @@ export function Registrar() {
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data: any) => {
-    if (data.password > 5) {
-      createUserWithEmailAndPassword(auth, data.email, data.password)
-        .then(() => {
-          console.log('usuario criado')
-          navigate('/transactions')
-        })
-        .catch(() => {
-          console.log('F usuario ')
-        })
-    }
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(() => {
+        console.log('usuario criado')
+        navigate('/transactions')
+      })
+      .catch(() => {
+        console.log('F usuario ')
+      })
   }
 
   return (

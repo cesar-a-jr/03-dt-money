@@ -11,6 +11,11 @@ export const SummaryContainer = styled.section`
   gap: 2rem;
 
   margin-top: -5rem;
+
+  @media (max-width: 768px) {
+    max-width: 768px;
+    overflow-y: scroll;
+  }
 `
 interface summaryCardProps {
   variant?: 'green'
@@ -39,4 +44,8 @@ export const SummaryCard = styled.div<summaryCardProps>`
     css`
       background-color: ${(props) => props.theme['green-700']};
     `}
+
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 `
